@@ -30,7 +30,7 @@ Router.get('/', async (req: Request, res: Response) => {
       const items = JSON.parse(body).results
 
       const categories: string[] = items.map(
-        (item: { category_id: any }) => item.category_id,
+        (item: { category_id: string }) => item.category_id,
       )
 
       const result = {

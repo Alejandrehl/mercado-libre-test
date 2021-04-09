@@ -3,6 +3,16 @@ import request from 'request'
 
 const Router = express.Router()
 
+type AuthorType = {
+  name: string
+  lastname: string
+}
+
+const author: AuthorType = {
+  name: 'Alejandro Exequiel',
+  lastname: 'Hernández Lara',
+}
+
 // @route   GET api/items?q=query
 // @desc    Get items
 // @access  Public
@@ -17,7 +27,18 @@ Router.get('/', async (req: Request, res: Response) => {
     request.get(url, (error, response, body) => {
       if (error) res.status(500).send(error.message)
 
-      const result = JSON.parse(body).results
+      const items = JSON.parse(body).results
+
+      const categories: string[] = items.map(
+        (item: { category_id: any }) => item.category_id,
+      )
+
+      const result = {
+        author,
+        categories,
+        items,
+      }
+
       res.status(200).send(result)
     })
   } catch (err) {

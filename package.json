@@ -8,10 +8,14 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.ts",
-    "dev": "nodemon index.ts",
+    "server": "nodemon index.ts",
+    "client": "npm start --prefix client",
+    "clientInstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "tsc --project ./"
   },
   "dependencies": {
+    "concurrently": "^6.0.1",
     "express": "^4.17.1"
   },
   "devDependencies": {

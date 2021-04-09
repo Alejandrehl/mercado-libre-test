@@ -1,8 +1,11 @@
 import express from 'express'
 import path from 'path'
+import ItemRoutes from './routes/items'
 
 const app = express()
 const PORT = process.env.PORT || 5000
+
+app.use('/api/items', ItemRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))

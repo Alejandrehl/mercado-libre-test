@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Button, Card, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router'
 import ItemContext from '../../context/Item/item.context'
+import currency from 'currency.js'
 
 const styles = {
   centerContent: {
@@ -77,7 +78,9 @@ const ItemDetail: React.FC = () => {
                         ' vendidos'}
                     </label>
                     <h4>{product.item.title}</h4>
-                    <h4 style={styles.price}>{product.item.price}</h4>
+                    <h4 style={styles.price}>
+                      {currency(product.item.price).format()}
+                    </h4>
                     <Button variant="primary" block>
                       Comprar
                     </Button>

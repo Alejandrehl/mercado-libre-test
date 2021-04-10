@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { ListGroup, Spinner } from 'react-bootstrap'
 import { useHistory, useParams } from 'react-router'
 import ItemContext from '../../context/Item/item.context'
+import currency from 'currency.js'
 
 const styles = {
   centerContent: {
@@ -85,7 +86,7 @@ const ItemsSearch: React.FC = () => {
                     />
                   </div>
                   <div style={styles.description}>
-                    <h6>{item.price}</h6>
+                    <h6>{currency(item.price).format()}</h6>
                     <label>{item.title}</label>
                   </div>
                   <div style={styles.cityContainer}>

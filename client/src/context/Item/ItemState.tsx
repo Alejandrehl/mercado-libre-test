@@ -10,6 +10,7 @@ import itemReducer from './item.reducer'
 import ItemContext from './item.context'
 
 import { ItemStateType } from './item.types'
+import { api } from '../../utils/api'
 
 const ItemState: React.FC = ({ children }) => {
   const InitialState: ItemStateType = {
@@ -33,9 +34,10 @@ const ItemState: React.FC = ({ children }) => {
   const getItemById: (id: string) => void = async (id: string) => {
     try {
       setLoading()
-      dispatch({ type: GET_ITEM_BY_ID })
+      const res = await api.get(`/items/${id}`)
+      dispatch({ type: GET_ITEM_BY_ID, payload: res.data })
     } catch (err) {
-      setError(err.message)
+      setError(err.response.data)
     }
   }
 
@@ -44,7 +46,7 @@ const ItemState: React.FC = ({ children }) => {
       setLoading()
       dispatch({ type: SEARCH_ITEMS_BY_QUERY })
     } catch (err) {
-      setError(err.message)
+      setError(err.response.data)
     }
   }
 

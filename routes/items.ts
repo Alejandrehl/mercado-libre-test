@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { Request, Response } from 'express'
 import request from 'request'
 import rp from 'request-promise'
@@ -14,6 +15,18 @@ const author: AuthorType = {
   lastname: 'Hernández Lara',
 }
 
+const getItemById: (id: string) => Promise<any> = async (id: string) => {
+  try {
+    const uri = `https://api.mercadolibre.com/items/${id}`
+    const url: string = encodeURI(uri)
+
+    const result = await rp(url)
+    return JSON.parse(result)
+  } catch (err) {
+    throw new Error('Producto no encontrado')
+  }
+}
+
 const getItemDescription: (id: string) => Promise<string> = async (
   id: string,
 ) => {
@@ -24,7 +37,7 @@ const getItemDescription: (id: string) => Promise<string> = async (
     const result = await rp(url)
     return JSON.parse(result).plain_text
   } catch (err) {
-    return err.message
+    throw new Error('Descripción del producto no encontrada')
   }
 }
 
@@ -66,28 +79,17 @@ Router.get('/', async (req: Request, res: Response) => {
 // @access  Public
 Router.get('/:id', async (req: Request, res: Response) => {
   try {
-    const uri = `https://api.mercadolibre.com/items/${req.params.id}`
-    const url: string = encodeURI(uri)
-
+    const item: any = await getItemById(req.params.id)
     const description: string = await getItemDescription(req.params.id)
 
-    request.get(url, async (error, response, body) => {
-      if (error) res.status(500).send(error.message)
+    const result = {
+      author,
+      item: { ...item, description },
+    }
 
-      const item = JSON.parse(body)
-
-      if (Number(item.status) && item.status !== 200)
-        res.status(item.status).send(item.message)
-
-      const result = {
-        author,
-        item: { ...item, description },
-      }
-
-      res.status(200).send(result)
-    })
+    res.status(200).send(result)
   } catch (err) {
-    res.status(500).send('Server Error')
+    res.status(500).send(err.message)
   }
 })
 

@@ -9,13 +9,13 @@ const AppRouter: React.FC = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/items/search=">
+        <Route exact path="/items/search=">
           <ItemsSearch />
         </Route>
-        <Route path="/items/:id">
+        <Route exact path="/items/:id">
           <ItemDetail />
         </Route>
         <Route>

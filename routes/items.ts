@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import request from 'request'
+import rp from 'request-promise'
 
 const Router = express.Router()
 
@@ -19,14 +20,9 @@ const getItemDescription: (id: string) => Promise<string> = async (
   try {
     const uri = `https://api.mercadolibre.com/items/${id}/description`
     const url: string = encodeURI(uri)
-    let result = ''
 
-    request.get(url, (error, response, body) => {
-      if (error) return error.message
-      result = JSON.parse(body).plain_text
-    })
-
-    return result
+    const result = await rp(url)
+    return JSON.parse(result).plain_text
   } catch (err) {
     return err.message
   }
@@ -74,12 +70,14 @@ Router.get('/:id', async (req: Request, res: Response) => {
     const url: string = encodeURI(uri)
 
     const description: string = await getItemDescription(req.params.id)
-    console.log('DESCRIPTION RESULT', description)
 
     request.get(url, async (error, response, body) => {
       if (error) res.status(500).send(error.message)
 
       const item = JSON.parse(body)
+
+      if (Number(item.status) && item.status !== 200)
+        res.status(item.status).send(item.message)
 
       const result = {
         author,

@@ -46,7 +46,7 @@ const getItemDescription: (id: string) => Promise<string> = async (
 // @access  Public
 Router.get('/', async (req: Request, res: Response) => {
   try {
-    const uri = `https://api.mercadolibre.com/sites/MLA/search?q=${req.query.q}`
+    const uri = `https://api.mercadolibre.com/sites/MLA/search?q=${req.query.q}&limit=4`
     const url: string = encodeURI(uri)
 
     request.get(url, (error, response, body) => {

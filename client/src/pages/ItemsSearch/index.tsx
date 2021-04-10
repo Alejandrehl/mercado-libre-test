@@ -6,8 +6,8 @@ import ItemContext from '../../context/Item/item.context'
 const styles = {
   centerContent: {
     display: 'flex',
+    flexDirection: 'column' as 'column',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   container: {
     backgroundColor: 'white',

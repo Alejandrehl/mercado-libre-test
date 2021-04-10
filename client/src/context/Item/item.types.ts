@@ -1,6 +1,6 @@
 export type ItemStateType = {
   searchResult: any
-  item: any
+  product: any
   loading: boolean
   error: string | null
   query: string

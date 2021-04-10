@@ -17,7 +17,7 @@ const ItemState: React.FC = ({ children }) => {
   const InitialState: ItemStateType = {
     loading: false,
     error: null,
-    item: null,
+    product: null,
     searchResult: null,
     query: '',
   }

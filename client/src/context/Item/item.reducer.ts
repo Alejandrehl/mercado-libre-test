@@ -33,7 +33,7 @@ export default (state: ItemStateType, action: any): any => {
       return {
         ...state,
         loading: false,
-        item: action.payload,
+        product: action.payload,
       }
     case SET_QUERY:
       return {

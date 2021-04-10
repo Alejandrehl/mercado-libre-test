@@ -8,9 +8,19 @@ import { Button, Navbar, Form, FormControl } from 'react-bootstrap'
 import Logo from '../assets/meli-logo-2.png'
 import { Search } from 'react-bootstrap-icons'
 import ItemContext from '../context/Item/item.context'
+import AppBreadcrumb from '../components/AppBreadcrumb'
+
+const styles = {
+  breadcrumbContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+}
 
 const AppRouter: React.FC = () => {
-  const { setQuery, query } = useContext(ItemContext)
+  const { setQuery, query, searchResult, product, loading } = useContext(
+    ItemContext,
+  )
 
   const handleSearch: () => void = () => {
     window.location.replace(`/items/search=${query}`)
@@ -44,6 +54,14 @@ const AppRouter: React.FC = () => {
           </Button>
         </Form>
       </Navbar>
+      <div style={styles.breadcrumbContainer}>
+        <AppBreadcrumb
+          values={
+            !product ? searchResult?.categories : [product.item.category_id]
+          }
+          loading={loading}
+        />
+      </div>
       <Switch>
         <Route exact path="/">
           <Home />

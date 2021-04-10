@@ -16,6 +16,23 @@ const styles = {
   card: {
     width: '50%',
   },
+  upperContainer: {
+    display: 'flex',
+  },
+  leftContainer: {
+    width: '65%',
+  },
+  rightContainer: {
+    width: '35%',
+  },
+  price: {
+    marginBottom: '15%',
+    marginTop: '5%',
+  },
+  description: {
+    marginTop: '5%',
+    fontSize: 14,
+  },
 }
 
 const ItemDetail: React.FC = () => {
@@ -43,8 +60,8 @@ const ItemDetail: React.FC = () => {
           ) : (
             product && (
               <div>
-                <div style={{ display: 'flex' }}>
-                  <div style={{ width: '65%' }}>
+                <div style={styles.upperContainer}>
+                  <div style={styles.leftContainer}>
                     <img
                       src={product.item.thumbnail}
                       alt=""
@@ -52,7 +69,7 @@ const ItemDetail: React.FC = () => {
                       height="80%"
                     />
                   </div>
-                  <div style={{ width: '35%' }}>
+                  <div style={styles.rightContainer}>
                     <label>
                       {(product.item.condition === 'new' ? 'Nuevo' : 'Usado') +
                         ' - ' +
@@ -60,17 +77,15 @@ const ItemDetail: React.FC = () => {
                         ' vendidos'}
                     </label>
                     <h4>{product.item.title}</h4>
-                    <h4 style={{ marginBottom: '15%', marginTop: '5%' }}>
-                      {product.item.price}
-                    </h4>
+                    <h4 style={styles.price}>{product.item.price}</h4>
                     <Button variant="primary" block>
                       Comprar
                     </Button>
                   </div>
                 </div>
-                <div style={{ width: '65%' }}>
+                <div style={styles.leftContainer}>
                   <h4>Descripción del producto</h4>
-                  <label style={{ marginTop: '5%', fontSize: 14 }}>
+                  <label style={styles.description}>
                     {product.item.description}
                   </label>
                 </div>

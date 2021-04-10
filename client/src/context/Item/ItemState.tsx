@@ -44,7 +44,8 @@ const ItemState: React.FC = ({ children }) => {
   const searchItemsByQuery: (query: string) => void = async (query: string) => {
     try {
       setLoading()
-      dispatch({ type: SEARCH_ITEMS_BY_QUERY })
+      const res = await api.get(`/items?q=${query}`)
+      dispatch({ type: SEARCH_ITEMS_BY_QUERY, payload: res.data })
     } catch (err) {
       setError(err.response.data)
     }

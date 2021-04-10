@@ -46,10 +46,7 @@ const getItemDescription: (id: string) => Promise<string> = async (
 // @access  Public
 Router.get('/', async (req: Request, res: Response) => {
   try {
-    const { query } = req
-    const { q } = query
-
-    const uri = `https://api.mercadolibre.com/sites/MLA/search?q=${q}`
+    const uri = `https://api.mercadolibre.com/sites/MLA/search?q=${req.query.q}`
     const url: string = encodeURI(uri)
 
     request.get(url, (error, response, body) => {
@@ -70,7 +67,7 @@ Router.get('/', async (req: Request, res: Response) => {
       res.status(200).send(result)
     })
   } catch (err) {
-    res.status(500).send('Server Error')
+    res.status(500).send(err.message)
   }
 })
 

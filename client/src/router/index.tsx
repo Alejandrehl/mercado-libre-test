@@ -12,7 +12,7 @@ const AppRouter: React.FC = () => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/items/search=">
+        <Route exact path="/items/search=:query">
           <ItemsSearch />
         </Route>
         <Route exact path="/items/:id">

@@ -6,3 +6,7 @@
 2. `npm install`: Install server dependencies.
 3. `npm run clientInstall`: Install client dependencies.
 4. `npm run dev`: Run server and client concurrently.
+
+### Notes
+
+- [Mercado Libre Brand Codes](https://brandcolors.net/b/mercadolibre-com)

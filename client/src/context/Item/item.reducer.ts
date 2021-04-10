@@ -4,6 +4,7 @@ import {
   SET_LOADING,
   GET_ITEM_BY_ID,
   SEARCH_ITEMS_BY_QUERY,
+  SET_QUERY,
 } from '../types'
 
 import { ItemStateType } from './item.types'
@@ -26,13 +27,18 @@ export default (state: ItemStateType, action: any): any => {
       return {
         ...state,
         loading: false,
-        items: action.payload,
+        searchResult: action.payload,
       }
     case GET_ITEM_BY_ID:
       return {
         ...state,
         loading: false,
-        item: action.payload,
+        product: action.payload,
+      }
+    case SET_QUERY:
+      return {
+        ...state,
+        query: action.payload,
       }
     default:
       return state

@@ -11,13 +11,15 @@ import ItemContext from './item.context'
 
 import { ItemStateType } from './item.types'
 import { api } from '../../utils/api'
+import { SET_QUERY } from '../types'
 
 const ItemState: React.FC = ({ children }) => {
   const InitialState: ItemStateType = {
     loading: false,
     error: null,
-    item: null,
-    items: [],
+    product: null,
+    searchResult: null,
+    query: '',
   }
 
   const [state, dispatch] = useReducer(itemReducer, InitialState) as [
@@ -51,6 +53,9 @@ const ItemState: React.FC = ({ children }) => {
     }
   }
 
+  const setQuery: (value: string) => void = (value: string) =>
+    dispatch({ type: SET_QUERY, payload: value })
+
   return (
     <ItemContext.Provider
       value={{
@@ -59,6 +64,7 @@ const ItemState: React.FC = ({ children }) => {
         setError,
         getItemById,
         searchItemsByQuery,
+        setQuery,
       }}>
       {children}
     </ItemContext.Provider>

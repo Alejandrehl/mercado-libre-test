@@ -15,6 +15,19 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
+  navbar: {
+    backgroundColor: '#ffe600',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: '30%',
+  },
+  form: {
+    width: '100%',
+  },
+  formControl: {
+    width: '50%',
+  },
 }
 
 const AppRouter: React.FC = () => {
@@ -28,7 +41,7 @@ const AppRouter: React.FC = () => {
 
   return (
     <Router>
-      <Navbar variant="dark" style={{ backgroundColor: '#ffe600' }}>
+      <Navbar variant="dark" style={styles.navbar}>
         <Navbar.Brand href="/">
           <img
             alt="MELI-LOGO"
@@ -38,13 +51,14 @@ const AppRouter: React.FC = () => {
             className="d-inline-block align-top"
           />
         </Navbar.Brand>
-        <Form inline>
+        <Form inline style={styles.form}>
           <FormControl
             type="text"
             placeholder="Nunca dejes de buscar"
             className="mr-sm-2"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            style={styles.formControl}
           />
           <Button
             variant="light"

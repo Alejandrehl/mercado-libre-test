@@ -14,14 +14,27 @@ type Props = {
 
 const AppBreadcrumb: React.FC<Props> = ({ values = [], loading = false }) => {
   const orderValues: () => string[] = () => {
-    return ['', 'asdas']
+    const result: any[] = []
+
+    ;[...new Set(values)].forEach((item) =>
+      result.push({
+        key: item,
+        count: values.filter((i) => i === item).length,
+      }),
+    )
+    result.sort((a, b) => b.count - a.count)
+
+    const finalResult: string[] = result.map((item) => item.key)
+    return finalResult
   }
+
+  const finalValues: string[] = orderValues()
 
   return (
     <Breadcrumb style={styles.breadcrumb}>
       {!loading &&
         values.length > 0 &&
-        values.map((value, index) => (
+        finalValues.map((value, index) => (
           <Breadcrumb.Item key={index}>{value}</Breadcrumb.Item>
         ))}
     </Breadcrumb>

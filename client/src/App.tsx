@@ -1,11 +1,8 @@
 import React from 'react'
+import AppRouter from './router'
 
 const App: React.FC = () => {
-  return (
-    <div>
-      <h1>Mercado Libre Developer Test Project</h1>
-    </div>
-  )
+  return <AppRouter />
 }
 
 export default App

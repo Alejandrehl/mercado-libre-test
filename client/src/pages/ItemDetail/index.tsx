@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Card, Spinner } from 'react-bootstrap'
+import { Button, Card, Spinner } from 'react-bootstrap'
 import { useParams } from 'react-router'
 import ItemContext from '../../context/Item/item.context'
 
@@ -21,7 +21,6 @@ const styles = {
 const ItemDetail: React.FC = () => {
   const { loading, product, error, getItemById } = useContext(ItemContext)
   const { id }: any = useParams()
-
   useEffect(() => {
     getItemById(id)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,7 +41,41 @@ const ItemDetail: React.FC = () => {
               <h3>{error}</h3>
             </div>
           ) : (
-            <h1>AQUI</h1>
+            product && (
+              <div>
+                <div style={{ display: 'flex' }}>
+                  <div style={{ width: '65%' }}>
+                    <img
+                      src={product.item.thumbnail}
+                      alt=""
+                      width="80%"
+                      height="80%"
+                    />
+                  </div>
+                  <div style={{ width: '35%' }}>
+                    <label>
+                      {(product.item.condition === 'new' ? 'Nuevo' : 'Usado') +
+                        ' - ' +
+                        product.item.sold_quantity +
+                        ' vendidos'}
+                    </label>
+                    <h4>{product.item.title}</h4>
+                    <h4 style={{ marginBottom: '15%', marginTop: '5%' }}>
+                      {product.item.price}
+                    </h4>
+                    <Button variant="primary" block>
+                      Comprar
+                    </Button>
+                  </div>
+                </div>
+                <div style={{ width: '65%' }}>
+                  <h4>Descripción del producto</h4>
+                  <label style={{ marginTop: '5%', fontSize: 14 }}>
+                    {product.item.description}
+                  </label>
+                </div>
+              </div>
+            )
           )}
         </Card.Body>
       </Card>

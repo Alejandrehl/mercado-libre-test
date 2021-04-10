@@ -13,6 +13,25 @@ const author: AuthorType = {
   lastname: 'Hernández Lara',
 }
 
+const getItemDescription: (id: string) => Promise<string> = async (
+  id: string,
+) => {
+  try {
+    const uri = `https://api.mercadolibre.com/items/${id}/description`
+    const url: string = encodeURI(uri)
+    let result = ''
+
+    request.get(url, (error, response, body) => {
+      if (error) return error.message
+      result = JSON.parse(body).plain_text
+    })
+
+    return result
+  } catch (err) {
+    return err.message
+  }
+}
+
 // @route   GET api/items?q=query
 // @desc    Get items
 // @access  Public
@@ -54,29 +73,19 @@ Router.get('/:id', async (req: Request, res: Response) => {
     const uri = `https://api.mercadolibre.com/items/${req.params.id}`
     const url: string = encodeURI(uri)
 
-    request.get(url, (error, response, body) => {
+    const description: string = await getItemDescription(req.params.id)
+    console.log('DESCRIPTION RESULT', description)
+
+    request.get(url, async (error, response, body) => {
       if (error) res.status(500).send(error.message)
 
-      const result = JSON.parse(body)
-      res.status(200).send(result)
-    })
-  } catch (err) {
-    res.status(500).send('Server Error')
-  }
-})
+      const item = JSON.parse(body)
 
-// @route   GET api/items/:id/description
-// @desc    Get item description by ID
-// @access  Public
-Router.get('/:id/description', async (req: Request, res: Response) => {
-  try {
-    const uri = `https://api.mercadolibre.com/items/${req.params.id}/description`
-    const url: string = encodeURI(uri)
+      const result = {
+        author,
+        item: { ...item, description },
+      }
 
-    request.get(url, (error, response, body) => {
-      if (error) res.status(500).send(error.message)
-
-      const result = JSON.parse(body)
       res.status(200).send(result)
     })
   } catch (err) {

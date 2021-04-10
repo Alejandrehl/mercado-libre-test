@@ -27,7 +27,7 @@ export default (state: ItemStateType, action: any): any => {
       return {
         ...state,
         loading: false,
-        items: action.payload,
+        searchResult: action.payload,
       }
     case GET_ITEM_BY_ID:
       return {

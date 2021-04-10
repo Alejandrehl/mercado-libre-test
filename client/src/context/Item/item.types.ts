@@ -1,5 +1,5 @@
 export type ItemStateType = {
-  items: []
+  searchResult: any
   item: any
   loading: boolean
   error: string | null

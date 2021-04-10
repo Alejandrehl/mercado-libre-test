@@ -18,7 +18,7 @@ const ItemState: React.FC = ({ children }) => {
     loading: false,
     error: null,
     item: null,
-    items: [],
+    searchResult: null,
     query: '',
   }
 

@@ -1,13 +1,49 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from '../pages/Home/index'
 import ItemsSearch from '../pages/ItemsSearch/index'
 import ItemDetail from '../pages/ItemDetail/index'
 import NotFound from '../pages/NotFound/index'
+import { Button, Navbar, Form, FormControl } from 'react-bootstrap'
+import Logo from '../assets/meli-logo-2.png'
+import { Search } from 'react-bootstrap-icons'
+import ItemContext from '../context/Item/item.context'
 
 const AppRouter: React.FC = () => {
+  const { setQuery, query } = useContext(ItemContext)
+
+  const handleSearch: () => void = () => {
+    window.location.replace(`/items/search=${query}`)
+  }
+
   return (
     <Router>
+      <Navbar variant="dark" style={{ backgroundColor: '#ffe600' }}>
+        <Navbar.Brand href="/">
+          <img
+            alt="MELI-LOGO"
+            src={Logo}
+            width="50"
+            height="50"
+            className="d-inline-block align-top"
+          />
+        </Navbar.Brand>
+        <Form inline>
+          <FormControl
+            type="text"
+            placeholder="Nunca dejes de buscar"
+            className="mr-sm-2"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <Button
+            variant="light"
+            onClick={handleSearch}
+            disabled={query === ''}>
+            <Search />
+          </Button>
+        </Form>
+      </Navbar>
       <Switch>
         <Route exact path="/">
           <Home />

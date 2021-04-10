@@ -3,4 +3,5 @@ export type ItemStateType = {
   item: any
   loading: boolean
   error: string | null
+  query: string
 }
